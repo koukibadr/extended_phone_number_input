@@ -109,106 +109,103 @@ class _CountryCodePickerState extends State<PhoneNumberInput> {
     return FutureBuilder(
         future: _initFuture,
         builder: (context, snapshot) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 2),
-            child: Column(
-              children: [
-                Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: TextFormField(
-                    controller: _phoneNumberTextFieldController,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(15),
-                      FilteringTextInputFormatter.allow(kNumberRegex),
-                    ],
-                    onChanged: (v) {
-                      _phoneNumberInputController.innerPhoneNumber = v;
-                    },
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: _phoneNumberInputController.validator,
-                    keyboardType: TextInputType.phone,
-                    textAlignVertical: TextAlignVertical.center,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.zero,
-                      hintText: widget.hint,
-                      border: widget.border,
-                      hintStyle: const TextStyle(color: Color(0xFFB6B6B6)),
-                      enabledBorder: widget.enabledBorder,
-                      focusedBorder: widget.focusedBorder,
-                      suffixIcon: Visibility(
-                        visible: widget.allowPickFromContacts &&
-                            widget.contactsPickerPosition ==
-                                ContactsPickerPosition.suffix,
-                        child: widget.pickContactIcon == null
-                            ? IconButton(
-                                onPressed: _phoneNumberInputController
-                                    .pickFromContacts,
-                                icon: Icon(
-                                  Icons.contact_phone,
-                                  color: Theme.of(context).primaryColor,
-                                ))
-                            : InkWell(
-                                onTap: _phoneNumberInputController
-                                    .pickFromContacts,
-                                child: widget.pickContactIcon,
-                              ),
-                      ),
-                      prefixIcon: InkWell(
-                        onTap: _openCountryList,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.arrow_drop_down),
-                            if (_selectedCountry != null &&
-                                widget.showSelectedFlag)
-                              Image.asset(
-                                _selectedCountry!.flagPath,
-                                height: 12,
-                              ),
-                            const SizedBox(
-                              width: 4,
+          return Column(
+            children: [
+              Directionality(
+                textDirection: TextDirection.ltr,
+                child: TextFormField(
+                  controller: _phoneNumberTextFieldController,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(15),
+                    FilteringTextInputFormatter.allow(kNumberRegex),
+                  ],
+                  onChanged: (v) {
+                    _phoneNumberInputController.innerPhoneNumber = v;
+                  },
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: _phoneNumberInputController.validator,
+                  keyboardType: TextInputType.phone,
+                  textAlignVertical: TextAlignVertical.center,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.zero,
+                    hintText: widget.hint,
+                    border: widget.border,
+                    hintStyle: const TextStyle(color: Color(0xFFB6B6B6)),
+                    enabledBorder: widget.enabledBorder,
+                    focusedBorder: widget.focusedBorder,
+                    suffixIcon: Visibility(
+                      visible: widget.allowPickFromContacts &&
+                          widget.contactsPickerPosition ==
+                              ContactsPickerPosition.suffix,
+                      child: widget.pickContactIcon == null
+                          ? IconButton(
+                              onPressed: _phoneNumberInputController
+                                  .pickFromContacts,
+                              icon: Icon(
+                                Icons.contact_phone,
+                                color: Theme.of(context).primaryColor,
+                              ))
+                          : InkWell(
+                              onTap: _phoneNumberInputController
+                                  .pickFromContacts,
+                              child: widget.pickContactIcon,
                             ),
-                            if (_selectedCountry != null)
-                              Text(
-                                _selectedCountry!.dialCode,
-                                style: TextStyle(
-                                    color: Theme.of(context).primaryColor),
-                              ),
-                            const SizedBox(
-                              width: 8,
+                    ),
+                    prefixIcon: InkWell(
+                      onTap: _openCountryList,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.arrow_drop_down),
+                          if (_selectedCountry != null &&
+                              widget.showSelectedFlag)
+                            Image.asset(
+                              _selectedCountry!.flagPath,
+                              height: 12,
                             ),
-                            Container(
-                              height: 24,
-                              width: 1,
-                              color: const Color(0xFFB9BFC5),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          if (_selectedCountry != null)
+                            Text(
+                              _selectedCountry!.dialCode,
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor),
                             ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                          ],
-                        ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Container(
+                            height: 24,
+                            width: 1,
+                            color: const Color(0xFFB9BFC5),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),
-                Visibility(
-                    visible: widget.allowPickFromContacts &&
-                        widget.contactsPickerPosition ==
-                            ContactsPickerPosition.bottom,
-                    child: widget.pickContactIcon == null
-                        ? IconButton(
-                            onPressed:
-                                _phoneNumberInputController.pickFromContacts,
-                            icon: Icon(
-                              Icons.contact_phone,
-                              color: Theme.of(context).primaryColor,
-                            ))
-                        : InkWell(
-                            onTap: _phoneNumberInputController.pickFromContacts,
-                            child: widget.pickContactIcon,
-                          )),
-              ],
-            ),
+              ),
+              Visibility(
+                  visible: widget.allowPickFromContacts &&
+                      widget.contactsPickerPosition ==
+                          ContactsPickerPosition.bottom,
+                  child: widget.pickContactIcon == null
+                      ? IconButton(
+                          onPressed:
+                              _phoneNumberInputController.pickFromContacts,
+                          icon: Icon(
+                            Icons.contact_phone,
+                            color: Theme.of(context).primaryColor,
+                          ))
+                      : InkWell(
+                          onTap: _phoneNumberInputController.pickFromContacts,
+                          child: widget.pickContactIcon,
+                        )),
+            ],
           );
         });
   }
